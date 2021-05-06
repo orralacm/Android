@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App01 - Evolutions!"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/bulbasaur"
+        android:id="@+id/bulbasaur"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/ivysaur"
+        android:id="@+id/ivysaur"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/venusaur"
+        android:id="@+id/venusaur"
+        android:visibility="invisible"/>
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/charmander"
+        android:id="@+id/charmander"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/charmeleon"
+        android:id="@+id/charmeleon"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/charizard"
+        android:id="@+id/charizard"
+        android:visibility="invisible"/>
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/squirtle"
+        android:id="@+id/squirtle"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/wartortle"
+        android:id="@+id/wartortle"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/blastoise"
+        android:id="@+id/blastoise"
+        android:visibility="invisible"/>
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Evolve Me!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@+id/bulbasaur"
+        android:id="@+id/evolve001"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evolve Me Again!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@+id/bulbasaur"
+        android:id="@+id/evolve002"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Evolve Me!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@id/charmander"
+        android:layout_centerVertical="true"
+        android:id="@+id/evolve004"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evolve Me Again!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@+id/charmander"
+        android:layout_centerVertical="true"
+        android:id="@+id/evolve005"
+        android:visibility="invisible"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Evolve Me!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@+id/squirtle"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/evolve007"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evolve Me Again!"
+        android:textSize="12.5sp"
+        android:layout_toStartOf="@+id/squirtle"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/evolve008"
+        android:visibility="invisible"/>
+</RelativeLayout>
