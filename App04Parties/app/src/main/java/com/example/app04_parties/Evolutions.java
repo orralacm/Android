@@ -1,4 +1,4 @@
-package com.example.app03_evolve;
+package com.example.app04_parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 
