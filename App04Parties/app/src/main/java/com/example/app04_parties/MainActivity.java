@@ -19,9 +19,9 @@ import io.realm.RealmConfiguration;
 public class MainActivity extends AppCompatActivity {
 
     int pokemonactivity;
+
     TextView txtnamepkmn1;
     TextView txtnumpkmn1;
-
     TextView txtnamepkmn2;
     TextView txtnumpkmn2;
     TextView txtnamepkmn3;
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     public void update() {
         pokemon1 = DBManager.getPokemonByNumber(1);
         txtnamepkmn1.setText(pokemon1.getPokemonname());
