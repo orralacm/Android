@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App03 - Evolutions v2"
+        android:text="App04 - Parties"
         android:id="@+id/title"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"/>
@@ -17,9 +17,73 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Choose your party of one Pokemon per type:"
+        android:id="@+id/txtchoose"
+        android:layout_above="@id/radiogroup1"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radiogroup1"
+        android:layout_above="@+id/radiogroup2"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bulbasaur"
+            android:id="@+id/radiobtnbulbasaur"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chikorita"
+            android:id="@+id/radiobtnchikorita"/>
+    </RadioGroup>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radiogroup2"
+        android:layout_above="@+id/radiogroup3"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charmander"
+            android:id="@+id/radiobtncharmander"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cyndaquil"
+            android:id="@+id/radiobtncyndaquil"/>
+    </RadioGroup>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/radiogroup3"
+        android:layout_above="@+id/btnupdate"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Squirtle"
+            android:id="@+id/radiobtnsquirtle"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tododile"
+            android:id="@+id/radiobtntotodile"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Choose your Pokemon to evolve"
-        android:id="@+id/subtitle"
-        android:layout_below="@+id/title"/>
+        android:id="@+id/txtevo"
+        android:layout_above="@+id/radiogroupevo"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,39 +96,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_above="@id/txtevo"
+        android:text="Update"
+        android:id="@+id/btnupdate"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="Evolution"
         android:id="@+id/btnevolution"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/subtitle"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/title"
         android:text="Reset"
         android:id="@+id/reset"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:id="@+id/radiogroupevo"
         android:layout_above="@+id/btnevolution"
         >
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bulbasaur"
-            android:id="@+id/radiobulbasaur"
-            android:checked="true"/>
+            android:id="@+id/radio1"
+            android:checked="false"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Charmander"
-            android:id="@+id/radiocharmander"
+            android:id="@+id/radio2"
             android:checked="false"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Squirtle"
-            android:id="@+id/radiosquirtle"
+            android:id="@+id/radio3"
             android:checked="false"/>
     </RadioGroup>
 
@@ -87,6 +162,19 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#1"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -147,6 +235,19 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#2"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 >
                 <ImageView
@@ -199,6 +300,19 @@
             android:orientation="horizontal"
             android:layout_weight="1"
             >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.2"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#3"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
