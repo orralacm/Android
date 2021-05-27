@@ -41,4 +41,17 @@ public class DBManager {
         }
     }
 
+    public static Party getPartyByNumber(int partynumber) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<Party> query = realm.where(Party.class);
+        query.equalTo("partynumber", partynumber);
+
+        Party partyresult = query.findFirst();
+        if (partyresult != null) {
+            return new Party(partyresult);
+        } else {
+            return null;
+        }
+    }
+
 }

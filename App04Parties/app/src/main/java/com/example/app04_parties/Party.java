@@ -4,51 +4,60 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Party extends RealmObject {
-    public String getPokemonname() {
-        return pokemonname;
-    }
 
-    public void setPokemonname(String pokemonname) {
-        this.pokemonname = pokemonname;
-    }
 
-    public int getPokemonnumber() {
-        return pokemonnumber;
-    }
-
-    public void setPokemonnumber(int pokemonnumber) {
-        this.pokemonnumber = pokemonnumber;
-    }
-
-    public int getPokemonlevel() {
-        return pokemonlevel;
-    }
-
-    public void setPokemonlevel(int pokemonlevel) {
-        this.pokemonlevel = pokemonlevel;
-    }
-
-    private int pokemonlevel;
-
-    public Party(String pokemonname, int pokemonnumber, int pokemonlevel) {
-        this.pokemonname = pokemonname;
-        this.pokemonnumber = pokemonnumber;
-        this.pokemonlevel = pokemonlevel;
+    public Party(int partynumber, int pokemon1, int pokemon2, int pokemon3) {
+        this.partynumber = partynumber;
+        this.pokemon1 = pokemon1;
+        this.pokemon2 = pokemon2;
+        this.pokemon3 = pokemon3;
     }
 
     public Party() {
-        this.pokemonname = "";
-        this.pokemonnumber = 0;
-        this.pokemonlevel = 1;
+        this.partynumber = 0;
+        this.pokemon1 = 0;
+        this.pokemon2 = 0;
+        this.pokemon3 = 0;
     }
 
     public Party(Party party) {
-        this.pokemonname = party.pokemonname;
-        this.pokemonnumber = party.pokemonnumber;
-        this.pokemonlevel = party.pokemonlevel;
+        this.partynumber = party.partynumber;
+        this.pokemon1 = party.pokemon1;
+        this.pokemon2 = party.pokemon2;
+        this.pokemon3 = party.pokemon3;
+    }
+
+    public int getPartynumber() {
+        return partynumber;
+    }
+    public void setPartynumber(int partynumber) {
+        this.partynumber = partynumber;
+    }
+
+    public int getPokemon1() {
+        return pokemon1;
+    }
+    public void setPokemon1(int pokemon1) {
+        this.pokemon1 = pokemon1;
+    }
+
+    public int getPokemon2() {
+        return pokemon2;
+    }
+    public void setPokemon2(int pokemon2) {
+        this.pokemon2 = pokemon2;
+    }
+
+    public int getPokemon3() {
+        return pokemon3;
+    }
+    public void setPokemon3(int pokemon3) {
+        this.pokemon3 = pokemon3;
     }
 
     @PrimaryKey
-    private int pokemonnumber;
-    private String pokemonname;
+    private int partynumber;
+    private int pokemon1;
+    private int pokemon2;
+    private int pokemon3;
 }

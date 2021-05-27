@@ -19,6 +19,12 @@ import io.realm.RealmConfiguration;
 public class MainActivity extends AppCompatActivity {
 
     int pokemonactivity;
+    int pokemonbulbasaur = 101;
+    int pokemoncharmander = 102;
+    int pokemonsquirtle = 103;
+    int pokemonchikorita = 201;
+    int pokemoncyndaquil = 202;
+    int pokemontotodile = 203;
 
     TextView txtnamepkmn1;
     TextView txtnumpkmn1;
@@ -31,9 +37,16 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgpkmn2;
     ImageView imgpkmn3;
 
-    Pokemon pokemon1;
-    Pokemon pokemon2;
-    Pokemon pokemon3;
+    Pokemon pokemon1a;
+    Pokemon pokemon2a;
+    Pokemon pokemon3a;
+    Pokemon pokemon1b;
+    Pokemon pokemon2b;
+    Pokemon pokemon3b;
+
+    RadioButton radio1;
+    RadioButton radio2;
+    RadioButton radio3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
         imgpkmn2 = findViewById(R.id.imgpkmn2);
         imgpkmn3 = findViewById(R.id.imgpkmn3);
 
+        radio1 = findViewById(R.id.radio1);
+        radio2 = findViewById(R.id.radio2);
+        radio3 = findViewById(R.id.radio3);
+
+        RadioButton btnbulbasaur = findViewById(R.id.radiobtnbulbasaur);
+        RadioButton btncharmander = findViewById(R.id.radiobtncharmander);
+        RadioButton btnsquirtle = findViewById(R.id.radiobtnsquirtle);
+        RadioButton btnchikorita = findViewById(R.id.radiobtnchikorita);
+        RadioButton btncyndaquil = findViewById(R.id.radiobtncyndaquil);
+        RadioButton btntotodile = findViewById(R.id.radiobtntotodile);
+
         Button reset = findViewById(R.id.reset);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,31 +83,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button update = findViewById(R.id.btnupdate);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Party party1 = new Party();
+                party1.setPartynumber(1);
+                if (btnbulbasaur.isChecked()) {
+                    party1.setPokemon1(pokemonbulbasaur);
+                }
+                else {
+                    party1.setPokemon1(pokemonchikorita);
+                }
+
+                if (btncharmander.isChecked()) {
+                    party1.setPokemon2(102);
+                }
+                else {
+                    party1.setPokemon2(202);
+                }
+
+                if (btnsquirtle.isChecked()) {
+                    party1.setPokemon3(103);
+                }
+                else {
+                    party1.setPokemon3(203);
+                }
+                DBManager.saveObject(party1);
+                update();
+            }
+        });
+
         Realm.init(this); // context, usually an Activity or Application
         RealmConfiguration config = new RealmConfiguration.Builder().name("pokemon.realm").build();
         Realm.setDefaultConfiguration(config);
-        pokemon1 = DBManager.getPokemonByNumber(101);
-        pokemon2 = DBManager.getPokemonByNumber(102);
-        pokemon3 = DBManager.getPokemonByNumber(103);
+        pokemon1a = DBManager.getPokemonByNumber(101);
+        pokemon2a = DBManager.getPokemonByNumber(102);
+        pokemon3a = DBManager.getPokemonByNumber(103);
+        pokemon1b = DBManager.getPokemonByNumber(201);
+        pokemon2b = DBManager.getPokemonByNumber(202);
+        pokemon3b = DBManager.getPokemonByNumber(203);
 
-        if (pokemon1 == null) {
-            pokemon1 = new Pokemon("Bulbasaur", 101, 1);
-            DBManager.saveObject(pokemon1);
+        if (pokemon1a == null) {
+            pokemon1a = new Pokemon("Bulbasaur", 101, 1);
+            DBManager.saveObject(pokemon1a);
         }
-        if (pokemon2 == null) {
-            pokemon2 = new Pokemon("Charmander", 102, 1);
-            DBManager.saveObject(pokemon2);
+        if (pokemon2a == null) {
+            pokemon2a = new Pokemon("Charmander", 102, 1);
+            DBManager.saveObject(pokemon2a);
         }
-        if (pokemon3 == null) {
-            pokemon3 = new Pokemon("Squirtle", 103, 1);
-            DBManager.saveObject(pokemon3);
+        if (pokemon3a == null) {
+            pokemon3a = new Pokemon("Squirtle", 103, 1);
+            DBManager.saveObject(pokemon3a);
+        }
+        if (pokemon1b == null) {
+            pokemon1b = new Pokemon("Chikorita", 201, 1);
+            DBManager.saveObject(pokemon1b);
+        }
+        if (pokemon2b == null) {
+            pokemon2b = new Pokemon("Cyndaquil", 202, 1);
+            DBManager.saveObject(pokemon2b);
+        }
+        if (pokemon3b == null) {
+            pokemon3b = new Pokemon("Totodile", 203, 1);
+            DBManager.saveObject(pokemon3b);
         }
 
         update();
-
-        RadioButton radio1 = findViewById(R.id.radio1);
-        RadioButton radio2 = findViewById(R.id.radio2);
-        RadioButton radio3 = findViewById(R.id.radio3);
 
         Button btnevolution = findViewById(R.id.btnevolution);
 
@@ -91,17 +157,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent evolutionactivity = new Intent(MainActivity.this, Evolutions.class);
+                Party party = DBManager.getPartyByNumber(1);
                 if (radio1.isChecked()) {
                     pokemonactivity = 101;
-                    evolutionactivity.putExtra("Pokemon Number", pokemon1.getPokemonnumber());
+                    evolutionactivity.putExtra("Pokemon Number", party.getPokemon1());
                 }
                 else if (radio2.isChecked()) {
                     pokemonactivity = 102;
-                    evolutionactivity.putExtra("Pokemon Number", pokemon2.getPokemonnumber());
+                    evolutionactivity.putExtra("Pokemon Number", party.getPokemon2());
                 }
                 else if (radio3.isChecked()) {
                     pokemonactivity = 103;
-                    evolutionactivity.putExtra("Pokemon Number", pokemon3.getPokemonnumber());
+                    evolutionactivity.putExtra("Pokemon Number", party.getPokemon3());
                 }
                 MainActivity.this.startActivityForResult(evolutionactivity, pokemonactivity);
             }
@@ -119,103 +186,133 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update() {
-        pokemon1 = DBManager.getPokemonByNumber(101);
-        txtnamepkmn1.setText(pokemon1.getPokemonname());
-        txtnumpkmn1.setText(pokemon1.getPokemonnumber() + "-" + pokemon1.getPokemonlevel());
-        if (pokemon1.getPokemonlevel() == 1) {
-            imgpkmn1.setImageResource(R.mipmap.bulbasaur);
-        }
-        else if (pokemon1.getPokemonlevel() == 2) {
-            imgpkmn1.setImageResource(R.mipmap.ivysaur);
-        }
-        else if (pokemon1.getPokemonlevel() == 3) {
-            imgpkmn1.setImageResource(R.mipmap.venusaur);
-        }
+        Party party = DBManager.getPartyByNumber(1);
+        if (party != null) {
+            if (party.getPokemon1() == pokemonbulbasaur) {
+                pokemon1a = DBManager.getPokemonByNumber(101);
+                txtnamepkmn1.setText(pokemon1a.getPokemonname());
+                txtnumpkmn1.setText(pokemon1a.getPokemonnumber() + "-" + pokemon1a.getPokemonlevel());
+                radio1.setText(pokemon1a.getPokemonname());
+                if (pokemon1a.getPokemonlevel() == 1) {
+                    imgpkmn1.setImageResource(R.mipmap.bulbasaur);
+                }
+                else if (pokemon1a.getPokemonlevel() == 2) {
+                    imgpkmn1.setImageResource(R.mipmap.ivysaur);
+                }
+                else if (pokemon1a.getPokemonlevel() == 3) {
+                    imgpkmn1.setImageResource(R.mipmap.venusaur);
+                }
+            }
+            else if (party.getPokemon1() == pokemonchikorita) {
+                pokemon1b = DBManager.getPokemonByNumber(201);
+                txtnamepkmn1.setText(pokemon1b.getPokemonname());
+                txtnumpkmn1.setText(pokemon1b.getPokemonnumber() + "-" + pokemon1b.getPokemonlevel());
+                radio1.setText(pokemon1b.getPokemonname());
+                if (pokemon1b.getPokemonlevel() == 1) {
+                    imgpkmn1.setImageResource(R.mipmap.chikorita);
+                }
+                else if (pokemon1b.getPokemonlevel() == 2) {
+                    imgpkmn1.setImageResource(R.mipmap.bayleef);
+                }
+                else if (pokemon1b.getPokemonlevel() == 3) {
+                    imgpkmn1.setImageResource(R.mipmap.meganium);
+                }
+            }
 
-        pokemon2 = DBManager.getPokemonByNumber(102);
-        txtnamepkmn2.setText(pokemon2.getPokemonname());
-        txtnumpkmn2.setText(pokemon2.getPokemonnumber() + "-" + pokemon2.getPokemonlevel());
-        if (pokemon2.getPokemonlevel() == 1) {
-            imgpkmn2.setImageResource(R.mipmap.charmander);
-        }
-        else if (pokemon2.getPokemonlevel() == 2) {
-            imgpkmn2.setImageResource(R.mipmap.charmeleon);
-        }
-        else if (pokemon2.getPokemonlevel() == 3) {
-            imgpkmn2.setImageResource(R.mipmap.charizard);
-        }
+            if (party.getPokemon2() == pokemoncharmander) {
+                pokemon2a = DBManager.getPokemonByNumber(102);
+                txtnamepkmn2.setText(pokemon2a.getPokemonname());
+                txtnumpkmn2.setText(pokemon2a.getPokemonnumber() + "-" + pokemon2a.getPokemonlevel());
+                radio2.setText(pokemon2a.getPokemonname());
+                if (pokemon2a.getPokemonlevel() == 1) {
+                    imgpkmn2.setImageResource(R.mipmap.charmander);
+                }
+                else if (pokemon2a.getPokemonlevel() == 2) {
+                    imgpkmn2.setImageResource(R.mipmap.charmeleon);
+                }
+                else if (pokemon2a.getPokemonlevel() == 3) {
+                    imgpkmn2.setImageResource(R.mipmap.charizard);
+                }
+            }
+            else if (party.getPokemon2() == pokemoncyndaquil) {
+                pokemon2b = DBManager.getPokemonByNumber(202);
+                txtnamepkmn2.setText(pokemon2b.getPokemonname());
+                txtnumpkmn2.setText(pokemon2b.getPokemonnumber() + "-" + pokemon2b.getPokemonlevel());
+                radio2.setText(pokemon2b.getPokemonname());
+                if (pokemon2b.getPokemonlevel() == 1) {
+                    imgpkmn2.setImageResource(R.mipmap.cyndaquil);
+                }
+                else if (pokemon2b.getPokemonlevel() == 2) {
+                    imgpkmn2.setImageResource(R.mipmap.quilava);
+                }
+                else if (pokemon2b.getPokemonlevel() == 3) {
+                    imgpkmn2.setImageResource(R.mipmap.typhlosion);
+                }
+            }
 
-        pokemon3 = DBManager.getPokemonByNumber(103);
-        txtnamepkmn3.setText(pokemon3.getPokemonname());
-        txtnumpkmn3.setText(pokemon3.getPokemonnumber() + "-" + pokemon3.getPokemonlevel());
-        if (pokemon3.getPokemonlevel() == 1) {
-            imgpkmn3.setImageResource(R.mipmap.squirtle);
-        }
-        else if (pokemon3.getPokemonlevel() == 2) {
-            imgpkmn3.setImageResource(R.mipmap.wartortle);
-        }
-        else if (pokemon3.getPokemonlevel() == 3) {
-            imgpkmn3.setImageResource(R.mipmap.blastoise);
-        }
-
-
-
-
-        pokemon1 = DBManager.getPokemonByNumber(201);
-        txtnamepkmn1.setText(pokemon1.getPokemonname());
-        txtnumpkmn1.setText(pokemon1.getPokemonnumber() + "-" + pokemon1.getPokemonlevel());
-        if (pokemon1.getPokemonlevel() == 1) {
-            imgpkmn1.setImageResource(R.mipmap.chikorita);
-        }
-        else if (pokemon1.getPokemonlevel() == 2) {
-            imgpkmn1.setImageResource(R.mipmap.bayleef);
-        }
-        else if (pokemon1.getPokemonlevel() == 3) {
-            imgpkmn1.setImageResource(R.mipmap.meganium);
-        }
-
-        pokemon2 = DBManager.getPokemonByNumber(202);
-        txtnamepkmn2.setText(pokemon2.getPokemonname());
-        txtnumpkmn2.setText(pokemon2.getPokemonnumber() + "-" + pokemon2.getPokemonlevel());
-        if (pokemon2.getPokemonlevel() == 1) {
-            imgpkmn2.setImageResource(R.mipmap.cyndaquil);
-        }
-        else if (pokemon2.getPokemonlevel() == 2) {
-            imgpkmn2.setImageResource(R.mipmap.quilava);
-        }
-        else if (pokemon2.getPokemonlevel() == 3) {
-            imgpkmn2.setImageResource(R.mipmap.typhlosion);
-        }
-
-        pokemon3 = DBManager.getPokemonByNumber(203);
-        txtnamepkmn3.setText(pokemon3.getPokemonname());
-        txtnumpkmn3.setText(pokemon3.getPokemonnumber() + "-" + pokemon3.getPokemonlevel());
-        if (pokemon3.getPokemonlevel() == 1) {
-            imgpkmn3.setImageResource(R.mipmap.totodile);
-        }
-        else if (pokemon3.getPokemonlevel() == 2) {
-            imgpkmn3.setImageResource(R.mipmap.croconaw);
-        }
-        else if (pokemon3.getPokemonlevel() == 3) {
-            imgpkmn3.setImageResource(R.mipmap.feraligatr);
+           if (party.getPokemon3() == pokemonsquirtle) {
+               pokemon3a = DBManager.getPokemonByNumber(103);
+               txtnamepkmn3.setText(pokemon3a.getPokemonname());
+               txtnumpkmn3.setText(pokemon3a.getPokemonnumber() + "-" + pokemon3a.getPokemonlevel());
+               radio3.setText(pokemon3a.getPokemonname());
+               if (pokemon3a.getPokemonlevel() == 1) {
+                   imgpkmn3.setImageResource(R.mipmap.squirtle);
+               }
+               else if (pokemon3a.getPokemonlevel() == 2) {
+                   imgpkmn3.setImageResource(R.mipmap.wartortle);
+               }
+               else if (pokemon3a.getPokemonlevel() == 3) {
+                   imgpkmn3.setImageResource(R.mipmap.blastoise);
+               }
+           }
+           else if (party.getPokemon3() == pokemontotodile) {
+               pokemon3b = DBManager.getPokemonByNumber(203);
+               txtnamepkmn3.setText(pokemon3b.getPokemonname());
+               txtnumpkmn3.setText(pokemon3b.getPokemonnumber() + "-" + pokemon3b.getPokemonlevel());
+               radio3.setText(pokemon3b.getPokemonname());
+               if (pokemon3b.getPokemonlevel() == 1) {
+                   imgpkmn3.setImageResource(R.mipmap.totodile);
+               }
+               else if (pokemon3b.getPokemonlevel() == 2) {
+                   imgpkmn3.setImageResource(R.mipmap.croconaw);
+               }
+               else if (pokemon3b.getPokemonlevel() == 3) {
+                   imgpkmn3.setImageResource(R.mipmap.feraligatr);
+               }
+           }
         }
     }
 
     public void reset() {
-        pokemon1 = DBManager.getPokemonByNumber(101);
-        pokemon1.setPokemonname("Bulbasaur");
-        pokemon1.setPokemonlevel(1);
-        DBManager.saveObject(pokemon1);
+        pokemon1a = DBManager.getPokemonByNumber(101);
+        pokemon1a.setPokemonname("Bulbasaur");
+        pokemon1a.setPokemonlevel(1);
+        DBManager.saveObject(pokemon1a);
 
-        pokemon2 = DBManager.getPokemonByNumber(102);
-        pokemon2.setPokemonname("Charmander");
-        pokemon2.setPokemonlevel(1);
-        DBManager.saveObject(pokemon2);
+        pokemon2a = DBManager.getPokemonByNumber(102);
+        pokemon2a.setPokemonname("Charmander");
+        pokemon2a.setPokemonlevel(1);
+        DBManager.saveObject(pokemon2a);
 
-        pokemon3 = DBManager.getPokemonByNumber(103);
-        pokemon3.setPokemonname("Squirtle");
-        pokemon3.setPokemonlevel(1);
-        DBManager.saveObject(pokemon3);
+        pokemon3a = DBManager.getPokemonByNumber(103);
+        pokemon3a.setPokemonname("Squirtle");
+        pokemon3a.setPokemonlevel(1);
+        DBManager.saveObject(pokemon3a);
+
+        pokemon1b = DBManager.getPokemonByNumber(201);
+        pokemon1b.setPokemonname("Chikorita");
+        pokemon1b.setPokemonlevel(1);
+        DBManager.saveObject(pokemon1b);
+
+        pokemon2b = DBManager.getPokemonByNumber(202);
+        pokemon2b.setPokemonname("Cyndaquil");
+        pokemon2b.setPokemonlevel(1);
+        DBManager.saveObject(pokemon2b);
+
+        pokemon3b = DBManager.getPokemonByNumber(203);
+        pokemon3b.setPokemonname("Totodile");
+        pokemon3b.setPokemonlevel(1);
+        DBManager.saveObject(pokemon3b);
 
         update();
     }
