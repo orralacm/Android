@@ -2,14 +2,19 @@ package com.example.app05_parties;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CreateParty extends AppCompatActivity {
 
     EditText inputpartyname;
+    FloatingActionButton floatingactionbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +22,15 @@ public class CreateParty extends AppCompatActivity {
         setContentView(R.layout.activity_create_party);
         setTitle("Create Party");
         inputpartyname = findViewById(R.id.inputpartyname);
+
+        floatingactionbutton = findViewById(R.id.btnaddpokemon);
+        floatingactionbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PartiesMenu.this, PokemonMenu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -34,7 +48,8 @@ public class CreateParty extends AppCompatActivity {
             DBManager.saveObject(party);
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+
 }
