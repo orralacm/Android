@@ -12,6 +12,13 @@
         android:hint="Enter Party Name"
         android:id="@+id/inputpartyname"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclepokemon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/inputpartyname"
+        android:layout_margin="4dp"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnaddpokemon"
         android:layout_width="wrap_content"

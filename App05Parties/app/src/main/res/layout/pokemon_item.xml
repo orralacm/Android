@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativelayout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:background="@color/teal_200">
-
+    
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/pokeball"
+        android:src="@mipmap/pokemonicon"
         android:scaleType="centerInside"
         android:layout_margin="5dp"
-        android:id="@+id/partyimage"/>
+        android:id="@+id/pokemonimage"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="PartyName"
-        android:layout_toRightOf="@+id/partyimage"
+        android:text="PokemonName"
+        android:layout_toRightOf="@+id/pokemonimage"
+        android:layout_toLeftOf="@+id/pokemonselected"
         android:gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/red"
-        android:id="@+id/partyname"/>
+        android:id="@+id/pokemonname"/>
 
-
-
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pokemonselected"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"/>
 </RelativeLayout>

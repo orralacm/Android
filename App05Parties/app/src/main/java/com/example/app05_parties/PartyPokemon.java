@@ -31,26 +31,39 @@ public class PartyPokemon extends RealmObject {
         this.pokemonnumber = pokemonnumber;
     }
 
-    public PartyPokemon(String uuid, int partynumber, int pokemonnumber) {
+
+    public int getPokemonlevel() {
+        return pokemonlevel;
+    }
+
+    public void setPokemonlevel(int pokemonlevel) {
+        this.pokemonlevel = pokemonlevel;
+    }
+
+    public PartyPokemon(String uuid, int partynumber, int pokemonnumber, int pokemonlevel) {
         this.uuid = uuid;
         this.partynumber = partynumber;
         this.pokemonnumber = pokemonnumber;
+        this.pokemonlevel = pokemonlevel;
     }
 
     public PartyPokemon() {
         this.uuid = UUID.randomUUID().toString();
         this.partynumber = 0;
         this.pokemonnumber = 0;
+        this.pokemonlevel = 0;
     }
 
     public PartyPokemon(PartyPokemon partypokemon) {
         this.uuid = partypokemon.uuid;
         this.partynumber = partypokemon.partynumber;
         this.pokemonnumber = partypokemon.pokemonnumber;
+        this.pokemonlevel = partypokemon.pokemonlevel;
     }
 
     @PrimaryKey
     private String uuid;
     private int partynumber;
     private int pokemonnumber;
+    private int pokemonlevel;
 }

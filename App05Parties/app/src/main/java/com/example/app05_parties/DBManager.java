@@ -111,4 +111,30 @@ public class DBManager {
         return pokemonlist;
     }
 
+    public static List<PartyPokemon> getPokemonsInParty(int partynumber) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<PartyPokemon> query = realm.where(PartyPokemon.class);
+        query.equalTo("partynumber", partynumber);
+
+        List<PartyPokemon> pokemonresult = query.findAll();
+        List<PartyPokemon> pokemonlist = new ArrayList<>();
+        for (PartyPokemon pokemon:pokemonresult) {
+            pokemonlist.add(new PartyPokemon(pokemon));
+        }
+        return pokemonlist;
+    }
+
+    public static PartyPokemon getPokemonByPartyAndNumber(int partynumber, int pokemonnumber) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<PartyPokemon> query = realm.where(PartyPokemon.class);
+        query.equalTo("pokemonnumber", pokemonnumber).and().equalTo("partynumber", partynumber);
+
+        PartyPokemon pokemonresult = query.findFirst();
+        if (pokemonresult != null) {
+            return new PartyPokemon(pokemonresult);
+        } else {
+            return null;
+        }
+    }
+
 }
