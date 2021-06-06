@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App05Parties">
-        <activity android:name=".PokemonMenu"></activity>
+        <activity android:name=".PokemonEvolution"></activity>
+        <activity android:name=".PokemonMenu" />
         <activity android:name=".CreateParty" />
         <activity android:name=".PartiesMenu">
             <intent-filter>

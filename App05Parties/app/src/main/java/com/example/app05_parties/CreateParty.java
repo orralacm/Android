@@ -37,13 +37,23 @@ public class CreateParty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CreateParty.this, PokemonMenu.class);
+
+                List<PokemonDetail> pokemonsinparty = pokemonadapter.getPokemonlist();
+                int[] pokemonsinpartyint = new int[pokemonsinparty.size()];
+
+                for (int i = 0; i < pokemonsinparty.size(); i++) {
+                    pokemonsinpartyint[i] = pokemonsinparty.get(i).getPokemonnumber();
+                }
+
+                intent.putExtra("PokemonsInParty", pokemonsinpartyint);
+
                 startActivityForResult(intent, 1001);
             }
         });
 
         recyclerview = findViewById(R.id.recyclepokemon);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        pokemonadapter = new PokemonAdapter(new ArrayList<>(), false, new ArrayList<>());
+        pokemonadapter = new PokemonAdapter(new ArrayList<>(), false, new ArrayList<>(), this);
         recyclerview.setAdapter(pokemonadapter);
 
         partynumber = 0;
@@ -58,6 +68,7 @@ public class CreateParty extends AppCompatActivity {
                 pokemonadapter.addPokemon(pokemondetail);
             }
         }
+        pokemonadapter.setPartynumber(partynumber);
     }
 
     @Override
@@ -87,7 +98,24 @@ public class CreateParty extends AppCompatActivity {
                 Party party = DBManager.getPartyByNumber(partynumber);
                 party.setPartyname(inputpartyname.getText().toString());
                 DBManager.saveObject(party);
+
+                List<PartyPokemon> partypokemonlist = DBManager.getPokemonsInParty(partynumber);
                 List<PokemonDetail> pokemonlist = pokemonadapter.getPokemonlist();
+
+                for (PartyPokemon pokemon:partypokemonlist) {
+                    boolean pokemonexist = false;
+                    for (PokemonDetail pokemondetail:pokemonlist) {
+                        if (pokemondetail.getPokemonnumber() == pokemon.getPokemonnumber()) {
+                            pokemonexist = true;
+                            break;
+                        }
+                    }
+                    if (!pokemonexist) {
+                        DBManager.deletePokemonInParty(pokemon);
+                    }
+                }
+
+
                 for (PokemonDetail pokemon:pokemonlist) {
                     PartyPokemon partypokemon = DBManager.getPokemonByPartyAndNumber(partynumber, pokemon.getPokemonnumber());
                     if (partypokemon == null) {
@@ -110,9 +138,25 @@ public class CreateParty extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 1001) {
             int[] pokemonselected = data.getIntArrayExtra("PokemonSelected");
+            pokemonadapter.resetPokemonList();
             for (int i = 0; i < pokemonselected.length; i++) {
-                PokemonDetail pokemon = DBManager.getPokemonDetail(pokemonselected[i], 1);
-                pokemonadapter.addPokemon(pokemon);
+                PartyPokemon partypokemon = DBManager.getPokemonByPartyAndNumber(partynumber, pokemonselected[i]);
+                if (partypokemon == null) {
+                    PokemonDetail pokemon = DBManager.getPokemonDetail(pokemonselected[i], 1);
+                    pokemonadapter.addPokemon(pokemon);
+                }
+                else {
+                    PokemonDetail pokemon = DBManager.getPokemonDetail(pokemonselected[i], partypokemon.getPokemonlevel());
+                    pokemonadapter.addPokemon(pokemon);
+                }
+            }
+        }
+        else if (resultCode == RESULT_OK && requestCode == 2001) {
+            pokemonadapter.resetPokemonList();
+            List<PartyPokemon> partypokemon = DBManager.getPokemonsInParty(partynumber);
+            for (PartyPokemon pokemon:partypokemon) {
+                PokemonDetail pokemondetail = DBManager.getPokemonDetail(pokemon.getPokemonnumber(), pokemon.getPokemonlevel());
+                pokemonadapter.addPokemon(pokemondetail);
             }
         }
     }

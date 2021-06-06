@@ -32,9 +32,18 @@ public class PokemonMenu extends AppCompatActivity {
 
         recyclerview = findViewById(R.id.recyclepokemon);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        pokemonadapter = new PokemonAdapter(DBManager.getAllPokemons(), true, new ArrayList<>());
+
+        List<Integer> pokemonsselected = new ArrayList<>();
+        if (getIntent().hasExtra("PokemonsInParty")) {
+            int[] pokemonsinparty = getIntent().getIntArrayExtra("PokemonsInParty");
+            for (int i = 0; i < pokemonsinparty.length; i++) {
+                pokemonsselected.add(pokemonsinparty[i]);
+            }
+        }
+        pokemonadapter = new PokemonAdapter(DBManager.getAllPokemons(), true, pokemonsselected, this);
 
         recyclerview.setAdapter(pokemonadapter);
+
     }
 
     @Override

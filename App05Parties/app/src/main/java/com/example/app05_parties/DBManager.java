@@ -137,4 +137,21 @@ public class DBManager {
         }
     }
 
+    public static void deletePokemonInParty(PartyPokemon deletedpokemon) {
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmQuery<PartyPokemon> query = realm.where(PartyPokemon.class);
+        query.equalTo("pokemonnumber", deletedpokemon.getPokemonnumber()).and().equalTo("partynumber", deletedpokemon.getPartynumber());
+
+        PartyPokemon pokemonresult = query.findFirst();
+
+        try {
+            realm.beginTransaction();
+            pokemonresult.deleteFromRealm();
+            realm.commitTransaction();
+        } finally {
+            realm.close();
+        }
+    }
+
 }
